@@ -48,6 +48,16 @@ class DirTree(tk.Frame):
             return None
         return self.get_selected_rec(item_id) + '.' + f_type
 
+    def rename_dir(self):
+        item_id = self.tree.focus()
+        if item_id == "":
+            return None
+        try:
+            f_type = self.tree.item(item_id)['values'][0]
+        except IndexError:
+            return self.get_selected_rec(item_id)
+        return None
+
     def get_selected_rec(self, item_id):
         name = self.tree.item(item_id)['text']
         if self.tree.parent(item_id) == "":

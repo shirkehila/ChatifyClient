@@ -5,7 +5,7 @@ from threading import Thread
 import tkinter
 import pickle
 import os.path
-from tkinter import filedialog
+from tkinter import filedialog, simpledialog
 import time
 import ntpath
 from math import ceil
@@ -64,7 +64,7 @@ def receive():
             elif req_type == "{tree}":
                 app.process_xml(msg)
             elif req_type == "{class}":
-                #server sends recommendation for classification
+                # server sends recommendation for classification
                 dmp = client_socket.recv(BUFSIZ)
                 classif = pickle.loads(dmp)
                 popup(classif[0], classif[1], classif[2])
@@ -169,6 +169,18 @@ def load_history():
                 msg_list.insert(tkinter.END, msg)
 
 
+def rename_dir():
+    dir_name = app.rename_dir()
+    if dir_name is not None:
+        old_name = dir_name
+        indx = dir_name.find("(")
+        if indx != -1:
+            dir_name = dir_name[:indx]
+        new_name = dir_name+"("+simpledialog.askstring("Input", "How would you like to name this directory?",
+                                parent=root)+")"
+        request("{rename}", old_name+"|"+new_name)
+
+
 def load_tree():
     request("{tree}")
 
@@ -199,6 +211,8 @@ get_tree_button = tkinter.Button(btns_frame, text="Load Tree", command=load_tree
 get_tree_button.pack(side=tkinter.LEFT)
 download_button = tkinter.Button(btns_frame, text="Download", command=download)
 download_button.pack(side=tkinter.LEFT)
+rename_button = tkinter.Button(btns_frame, text = "Rename", command=rename_dir)
+rename_button.pack(side = tkinter.LEFT)
 btns_frame.pack()
 
 
