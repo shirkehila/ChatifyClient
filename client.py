@@ -21,12 +21,10 @@ cur_path = ""
 
 def popup(data, topic, words):
     def clicked_ok():
-        print("ok")
         request("{ok}",str(topic))
         win.destroy()
 
     def clicked_cancel():
-        print("cancel")
         win.destroy()
     win = tkinter.Toplevel()
     win.wm_title("Classification")
@@ -123,7 +121,6 @@ def send_file(event=None):
     chunks = ceil(filesize / CHUNK_SIZE)
     msg = '{file}' + ntpath.basename(filename) + '|' + str(chunks)
     client_socket.send(bytes(msg, 'utf8'))
-    print(str(chunks))
     time.sleep(1)
 
     with open(filename, 'rb') as f:

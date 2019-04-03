@@ -8,7 +8,6 @@ class Bar(tk.Frame):
     def __init__(self, master, data, topic, t_words):
         tk.Frame.__init__(self, master)
         c_width = 30 + 30*len(data)  # Define it's width
-        print(data)
         c_height = 140  # Define it's height
         c = tk.Canvas(self, width=c_width, height=c_height, bg='white')
         c.pack()
@@ -28,7 +27,6 @@ class Bar(tk.Frame):
         for x, y in data:
             p = data.index((x,y))
             p, x = x, p
-            print(p)
             # coordinates of each bar
 
             # Bottom left coordinate
